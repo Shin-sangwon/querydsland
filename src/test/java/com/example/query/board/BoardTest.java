@@ -43,4 +43,19 @@ public class BoardTest {
             b -> assertThat(b.get(0).getContent()).isEqualTo("반갑습니다")
         );
     }
+
+    @Test
+    void querydsl_exists_test() throws Exception {
+
+        Board board = Board.builder()
+                           .title("안녕하세요")
+                           .content("반갑습니다")
+                           .build();
+
+        boardRepository.save(board);
+
+        boolean exists = boardQueryRepository.existsByTitle("안녕하세요");
+
+        assertThat(exists).isEqualTo(true);
+    }
 }
